@@ -7,6 +7,7 @@ package robot;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
@@ -27,8 +28,10 @@ public class Stanza extends JPanel implements Cloneable{
      */
     public Stanza()
     {
-        setPreferredSize(new Dimension(800, 800));
-        
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        setPreferredSize(new Dimension(900, (int) screenSize.getHeight()-200));
+ 
+       
         this.rig=16;
         this.col=16;
     }

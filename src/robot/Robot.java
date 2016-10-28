@@ -25,7 +25,7 @@ public class Robot {
     private Color colorePre;
     private Deque<Integer> stack;
     private List <Elemento> elementi;
-    ImageIcon icone[];
+    private ImageIcon icone[];
     private Stato stato;
     
     /**

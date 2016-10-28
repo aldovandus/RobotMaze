@@ -6,7 +6,6 @@
 package robot;
 
 import java.awt.Color;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /*
@@ -70,19 +69,6 @@ public class Elemento extends JButton implements Cloneable {
     {
         this.numero=numero;
     }
-
-    /**
-     * Overraiding del metodo SetIcon. Oltre a settare l'icona setta anche il 
-     * colore. Ci sarà utile in seguito per veficare la presenza di oggetti 
-     * colorati durante il percorso del robot.
-     * @param icona Oggetto di tipo Icon
-     * @param colore Oggetto di tipo Color
-     */
-    public void setIcon(ImageIcon icona,Color colore)
-    {
-        this.setIcon(icona);
-        this.colore=colore;
-    }
  
     /**
      *
@@ -90,7 +76,7 @@ public class Elemento extends JButton implements Cloneable {
      */
     public void setColore(Color colore) {
         this.colore = colore;
-  }
+    }
 
     /**
      *
@@ -98,7 +84,7 @@ public class Elemento extends JButton implements Cloneable {
      */
     public Color getColore() {
         return colore;
-}
+    }   
 
 
 

@@ -34,7 +34,6 @@ public class Cella extends Elemento{
         this.colore=Color.white;
         this.setBackground(this.colore);
         this.setBorder(border);
-        
     }
     
     /**

@@ -5,14 +5,11 @@
  */
 package robot;
 
-import java.awt.Color;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -28,15 +25,13 @@ public class TimerClass implements ActionListener {
     private List <Elemento> elementi;
     private Timer time;
     private Robot robot;
-    private int[] posPre; // Array di interi che memorizza le posizioni precendenti degli oggetti colorati
-    private int[] posOgg; // Array di interi che memorizza le posizioni correnti degli oggetti colorati
     private JLabel statoLbl;
     private JLabel passiLbl;
     private String nomeStanza;
-    private ImageIcon colori[]; // Array di ImageIcon che conterrà l'icone degli oggetti colorati
     private Labirinto labirinto;
     private Main main;
     private List <Integer> iCelle; // Questo arraylist servirà per avera una lista delle posizioni delle sole celle del labirinto
+    private List <Oggetto> oggettiColorati;
   
     /**
      *
@@ -50,20 +45,20 @@ public class TimerClass implements ActionListener {
        
         this.elementi=robot.getElementi();
         this.nomeStanza=nomeStanza;
-        
+        this.oggettiColorati = new ArrayList<>();
         time=new Timer(800,this);
-
-        this.posPre=new int[]{-1,-1,-1,-1}; // Inizializzazione dell'array posPre
-        this.posOgg= new int[4]; // Inizializzazione dell'array posOgg
         
         this.robot=robot;
         
         this.statoLbl=statoLbl;
         this.passiLbl=passiLbl;
         
-        this.creaIcone(); // Crea le icone degli oggetti colorati
         this.creaListaICelle();
         
+        this.oggettiColorati.add(new OggettoColorato(new ColoreRosso()));
+        this.oggettiColorati.add(new OggettoColorato(new ColoreVerde()));
+        this.oggettiColorati.add(new OggettoColorato(new ColoreCyan()));
+        this.oggettiColorati.add(new OggettoColorato(new ColoreGiallo()));
         
     }
     
@@ -124,9 +119,7 @@ public class TimerClass implements ActionListener {
     private void generaOggetti()
     {
         Random random = new Random();
-        
-        
-        
+       
         /*
             Vengono generati quattro numeri casuali e per selezionare a caso 
             quattro celle. Le celle trovate saranno quelle dove andremo a 
@@ -135,71 +128,27 @@ public class TimerClass implements ActionListener {
         
         int n = iCelle.size();
         int num;
+        
+        /*
+            Vengono prima rimossi gli oggetti dal labirinto se ci sono.
+        */
+        
+        for(int i=0;i<this.oggettiColorati.size();i++)
+        {
+            this.oggettiColorati.get(i).rimuoviOggetto();
+        }
      
         
-        for (int i = 0; i < 4; i++) {
-            num = random.nextInt(n); //Valori compresi tra 0 e il size dei successori del vertice corrente.
-            this.posOgg[i]=iCelle.get(num);
-        }
-        
-        
-        
-        for(int i=0;i<this.posPre.length;i++)
-        {
-            if(this.posPre[i] != -1)
-            { 
-                this.elementi.get(this.posPre[i]).setIcon(null,this.robot.getColorPre());
-            }
-        }
-            
+        for (int i = 0; i < this.oggettiColorati.size(); i++) {
+            num = random.nextInt(n); //Valori compresi tra 0 e il size dei successori del vertice corrente.    
             /*
-                Agli elementi appena trovati viene settata l'icona di un determinato colore
+                Ricaviamo una cella con il numero casuale num e gli disegnamo l'oggetto colorato.
             */
-            this.elementi.get(this.posOgg[0]).setIcon(this.colori[0],Color.red);
-            this.elementi.get(this.posOgg[1]).setIcon(this.colori[1],Color.cyan);
-            this.elementi.get(this.posOgg[2]).setIcon(this.colori[2],Color.yellow);
-            this.elementi.get(this.posOgg[3]).setIcon(this.colori[3],Color.green);
-            
-            /*
-                Nell'array posPre vengono inseriti i valori correnti. Questo 
-                ci serve per rimuovere l'icona delle celle precedenti.
-            */
-            
-            this.posPre[0]=this.posOgg[0];
-            this.posPre[1]=this.posOgg[1];
-            this.posPre[2]=this.posOgg[2];
-            this.posPre[3]=this.posOgg[3];
-   
-        
-       
+            this.oggettiColorati.get(i).disegnaOggetto((Cella)this.elementi.get(iCelle.get(num)));
+        }
+  
     }
     
-    /**
-     * Metodo che crea quattro imageIcon che vengono scalate di dimensione.
-     */
-    private void creaIcone()
-    {
-            Image tmp; // Variabile temporeanea
-            
-            this.colori=new ImageIcon[4];
-            
-            this.colori[0]= new ImageIcon("img/ogg_red.png");
-            this.colori[1]= new ImageIcon("img/ogg_cyan.png");
-            this.colori[2]= new ImageIcon("img/ogg_yellow.png");
-            this.colori[3]= new ImageIcon("img/ogg_green.png");
-            
-            tmp = this.colori[0].getImage().getScaledInstance(45, 45,  java.awt.Image.SCALE_SMOOTH);
-            this.colori[0]=new ImageIcon(tmp);
-            
-            tmp=this.colori[1].getImage().getScaledInstance(45, 45,  java.awt.Image.SCALE_SMOOTH);
-            this.colori[1]=new ImageIcon(tmp);
-            
-            tmp=this.colori[2].getImage().getScaledInstance(45, 45,  java.awt.Image.SCALE_SMOOTH);
-            this.colori[2]=new ImageIcon(tmp);
-            
-            tmp=this.colori[3].getImage().getScaledInstance(45, 45,  java.awt.Image.SCALE_SMOOTH);
-            this.colori[3]=new ImageIcon(tmp);
-    }
     
     /**
      * Metodo che aggiunge nella lista iCelle solo gli indici delle celle della lista

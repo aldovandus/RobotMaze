@@ -64,7 +64,7 @@ public class TimerClass implements ActionListener {
         this.creaIcone(); // Crea le icone degli oggetti colorati
         this.creaListaICelle();
         
-        System.out.println(this.elementi.get(0).getSize());
+        
     }
     
     /**

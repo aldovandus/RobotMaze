@@ -6,11 +6,13 @@ import java.awt.GridBagLayout;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -27,6 +29,12 @@ public class Classifica extends JFrame{
     private FileInputStream file;
     private List <Punteggio> punteggi;
     private Main main;
+    
+    private final JLabel nomeLbl = new JLabel("Nome: ");
+    private final JLabel cognomeLbl = new JLabel("Cognome: ");
+    private final JTextField nomeTxt = new JTextField(20);
+    private final JTextField passwordTxt = new JTextField(20);
+    private final JButton esciBtn = new JButton("Esci");
     private JTable table;
     private DefaultTableModel tableModel;
     private String[] nomeColonneTable;
@@ -164,7 +172,14 @@ public class Classifica extends JFrame{
         setLocationRelativeTo(null);
         
         this.setTitle("Classifica Partite");
+        this.esciBtn.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //nuovaBtnActionPerformed(evt);
+            }
 
+            
+        });
         
         
     }

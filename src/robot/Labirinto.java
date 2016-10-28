@@ -10,10 +10,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -158,7 +156,6 @@ public class Labirinto extends javax.swing.JFrame {
     panel.add(statoLbl);
     panel.add(passiLbl);
     
-    
     this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
     
     this.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -174,9 +171,6 @@ public class Labirinto extends javax.swing.JFrame {
     this.add(iniziaBtn,BorderLayout.SOUTH);
     
     this.setTitle("Labirinto - " + this.stanza.getNomeStanza());
-    
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    this.setLocation(screenSize.width/4,0);
     
     this.pack();
     this.setVisible(true);
